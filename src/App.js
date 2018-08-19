@@ -139,7 +139,7 @@ class App extends Component {
     return (
       <div className="container my-2">
         <div className="row">
-          <div className="col-6 offset-3">
+          <div className="col-md-6 offset-3">
             <div className="input-group">
               <input
                 onKeyPress={this.handlePress}
@@ -163,7 +163,7 @@ class App extends Component {
         </div>
         {this.state.placed ? (
           <div className="row mt-2">
-            <div className="col-6 offset-3">
+            <div className="col-md-6 offset-3">
               <ul className="list-group">{actions}</ul>
             </div>
           </div>
