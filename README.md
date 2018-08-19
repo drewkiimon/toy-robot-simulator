@@ -73,6 +73,38 @@ For example, if facing North and given the RIGHT command, the robot will now be 
 
 The **REPORT** command prints the current location of the robot to the screen.
 
+## Test Data
+
+Here are some examples of commands to give to the robot, and the corresponding output.
+
+```
+	PLACE 4,4,NORTH
+    MOVE
+    LEFT
+    MOVE
+    MOVE
+    LEFT
+    MOVE
+    RIGHT
+    MOVE
+    REPORT
+    Output: 1,3,WEST
+```
+
+First MOVE does not register, so the robot does not move one unit forward. In total, there are 3 moves to the left and 1 moves down, moving our robot to 1,1. Our robot ends up facing WEST due to the turns.
+
+```
+	PLACE 3,3,WEST
+    MOVE
+    MOVE
+    MOVE
+    RIGHT
+    REPORT
+    Output: 0,3,NORTH
+```
+
+Our robot moves three units WEST, and then turns right, giving it the output of 0,3,NORTH.
+
 ## Built With
 
 - [create-react-app](https://github.com/facebook/create-react-app) - Boiler plate for React
