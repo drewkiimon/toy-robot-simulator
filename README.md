@@ -78,7 +78,7 @@ The **REPORT** command prints the current location of the robot to the screen.
 Here are some examples of commands to give to the robot, and the corresponding output.
 
 ```
-	PLACE 4,4,NORTH
+    PLACE 4,4,NORTH
     MOVE
     LEFT
     MOVE
@@ -94,7 +94,7 @@ Here are some examples of commands to give to the robot, and the corresponding o
 First MOVE does not register, so the robot does not move one unit forward. In total, there are 3 moves to the left and 1 moves down, moving our robot to 1,1. Our robot ends up facing WEST due to the turns.
 
 ```
-	PLACE 3,3,WEST
+    PLACE 3,3,WEST
     MOVE
     MOVE
     MOVE
