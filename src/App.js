@@ -48,6 +48,7 @@ class App extends Component {
     this.handleReset = this.handleReset.bind(this);
   }
 
+  // Reset the game
   handleReset(event) {
     this.setState({
       value: "",
@@ -58,21 +59,20 @@ class App extends Component {
     });
   }
 
+  // Registering user event if valid
   handlePress(event) {
     if (event.key === "Enter") {
-      // Looking for a key command
+      // Split by space and comma
       const inputLine = this.state.value.split(/[\s,]+/);
+      // If the first word isn't a command, we ignore it
       var command = inputLine[0];
-      // The starting command
-      // Can be done more than once
       if (command === "PLACE") {
-        // Make sure we have all 4 arguments
         if (inputLine.length === 4) {
           const x = parseInt(inputLine[1], 10),
             y = parseInt(inputLine[2], 10),
             f = inputLine[3];
-          // Is PLACE location valid?
           const facing = orientation[f];
+          // Check if the robot is still on the table, and valid direction
           if (x > -1 && x < 5 && y > -1 && y < 5 && facing) {
             this.setState({
               location: { x, y },
@@ -83,7 +83,7 @@ class App extends Component {
           }
         }
       }
-      // If the robot is not on the board, no actions can be taken
+      // Ignore everything else until robot is placed
       if (this.state.placed) {
         if (command === "MOVE") {
           const moveX = this.state.facing.x;
@@ -92,7 +92,6 @@ class App extends Component {
           const nextX = this.state.location.x + moveX;
           const nextY = this.state.location.y + moveY;
           if (nextX > -1 && nextX < 5 && nextY > -1 && nextY < 5) {
-            // Good to go
             this.setState({
               location: { x: nextX, y: nextY },
               actions: [...this.state.actions, "MOVE"]
@@ -113,16 +112,16 @@ class App extends Component {
             actions: [...this.state.actions, "RIGHT"]
           });
         } else if (command === "REPORT") {
-          // Need to print to screen somewhere
           const location = this.state.location;
           var report = `Output: ${location.x},${location.y},${
             direction.x[this.state.facing.x.toString()].y[
               this.state.facing.y.toString()
             ]
           }`;
-          this.setState({ actions: [...this.state.actions, report] });
+          this.setState({ actions: [...this.state.actions, "REPORT", report] });
         }
       }
+      // Reset value in input
       this.setState({ value: "" });
     }
   }
@@ -133,13 +132,20 @@ class App extends Component {
   }
 
   render() {
+    // Iterate through our actions to print to screen
     const actions = this.state.actions.map((elem, index) => (
       <ActionView key={index} value={elem} />
     ));
+
     return (
       <div className="container my-2">
         <div className="row">
-          <div className="col-md-6 offset-3">
+          <div className="col-md-8 offset-md-2">
+            <h1 className="text-center">Toy Robot Simulator</h1>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-8 offset-md-2">
             <div className="input-group">
               <input
                 onKeyPress={this.handlePress}
@@ -163,7 +169,7 @@ class App extends Component {
         </div>
         {this.state.placed ? (
           <div className="row mt-2">
-            <div className="col-md-6 offset-3">
+            <div className="col-md-8 offset-md-2">
               <ul className="list-group">{actions}</ul>
             </div>
           </div>
